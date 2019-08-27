@@ -1,0 +1,127 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "array",
+  "title": "The Root Schema",
+  "items": {
+    "$id": "#/items",
+    "type": "object",
+    "title": "The Items Schema",
+    "required": [
+      "id",
+      "numAgencia",
+      "cpfCnpj",
+      "situacao",
+      "oidPessoa",
+      "tipoPessoa",
+      "nomePessoa",
+      "tiposAgente"
+    ],
+    "properties": {
+      "id": {
+        "$id": "#/items/properties/id",
+        "type": "integer",
+        "title": "The Id Schema",
+        "default": 0,
+        "examples": [
+          4
+        ]
+      },
+      "numAgencia": {
+        "$id": "#/items/properties/numAgencia",
+        "type": "string",
+        "title": "The Numagencia Schema",
+        "default": "",
+        "examples": [
+          "0434"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "cpfCnpj": {
+        "$id": "#/items/properties/cpfCnpj",
+        "type": "string",
+        "title": "The Cpfcnpj Schema",
+        "default": "",
+        "examples": [
+          "08965424000100"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "situacao": {
+        "$id": "#/items/properties/situacao",
+        "type": "string",
+        "title": "The Situacao Schema",
+        "default": "",
+        "examples": [
+          "1"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "oidPessoa": {
+        "$id": "#/items/properties/oidPessoa",
+        "type": "integer",
+        "title": "The Oidpessoa Schema",
+        "default": 0,
+        "examples": [
+          4623849
+        ]
+      },
+      "tipoPessoa": {
+        "$id": "#/items/properties/tipoPessoa",
+        "type": "string",
+        "title": "The Tipopessoa Schema",
+        "default": "",
+        "examples": [
+          "2"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "nomePessoa": {
+        "$id": "#/items/properties/nomePessoa",
+        "type": "string",
+        "title": "The Nomepessoa Schema",
+        "default": "",
+        "examples": [
+          "ATIA FERNANDES STROHER"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "tiposAgente": {
+        "$id": "#/items/properties/tiposAgente",
+        "type": "array",
+        "title": "The Tiposagente Schema",
+        "items": {
+          "$id": "#/items/properties/tiposAgente/items",
+          "type": "object",
+          "title": "The Items Schema",
+          "required": [
+            "id",
+            "descricao"
+          ],
+          "properties": {
+            "id": {
+              "$id": "#/items/properties/tiposAgente/items/properties/id",
+              "type": "integer",
+              "title": "The Id Schema",
+              "default": 0,
+              "examples": [
+                1
+              ]
+            },
+            "descricao": {
+              "$id": "#/items/properties/tiposAgente/items/properties/descricao",
+              "type": "string",
+              "title": "The Descricao Schema",
+              "default": "",
+              "examples": [
+                "VEICULOS"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        }
+      }
+    }
+  }
+}
