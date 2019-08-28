@@ -33,19 +33,6 @@ ${tipo}
 
 
 *** Keywords ***
-Buscar Info no banco de dados
-    Connect To Database Using Custom Params  cx_Oracle  ${string_conexao}
-    @{queryResults}=  Query  ${query}
-    ${agencia}=  Set Variable  ${queryResults[0][3]}
-    ${tipo}=  Set Variable  ${queryResults[0][10]}
-
-    Set Global Variable  ${agencia}
-    Set Global Variable  ${tipo}
-    disconnect from database
-
-
-
-
 Enviar request GET agentesCredenciados
     Create Session      api    ${url}  disable_warnings=1
     &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
