@@ -25,7 +25,6 @@ Inserir Agente Credenciado
     Create Session      api    ${url}  disable_warnings=1
     ${response}=  POST Request  api  /agentesCredenciados/  data=${payload}  headers=${headers}
 
-    Log To Console  ${response.status_code}
     Should Be Equal As Strings  ${response.status_code}  201
 
 
