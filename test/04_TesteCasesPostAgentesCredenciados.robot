@@ -1,5 +1,5 @@
 *** Settings ***
-Resource  ResourcePostAgentesCredenciados.robot
+Resource  ../resource/ResourcePostAgentesCredenciados.robot
 
 *** Test Cases ***
 TC: Validar Inserir Agente Credenciado Sucess
