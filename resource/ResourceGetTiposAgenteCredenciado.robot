@@ -2,6 +2,7 @@
 Library  RequestsLibrary
 Library  BuiltIn
 Library  Collections
+Library  DatabaseLibrary
 Library  OperatingSystem
 Library  JSONSchemaLibrary  C:\\Users\\anderson_benet\\Documents\\git_robotframework\\agente_credenciado\\schemas
 
@@ -13,6 +14,18 @@ ${base_path}  /tiposAgenteCredenciado/
 
 &{headers}
     ...   Content-Type=application/json
+
+
+#Info banco de dados
+${user}=  developer
+${password}=  developer
+${string_conexao}=  '${user}/${password}@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=dtb1admindb010d.des.sicredi.net)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=creditocomercialpdb)(SERVER=DEDICATED)))'
+
+#query
+${query}=  SELECT *
+     ...   FROM AGENTECREDENCIADO_OWNER.TIPO_AGENTE_CREDENCIADO
+
+
 
 *** Keywords ***
 #TC: Contrato
@@ -33,7 +46,10 @@ Validar busca tipos agentes credenciados
 
 #TC: Busca tipos agentes credenciados com filtro
 Validar busca tipos agentes credenciados com filtro
-  ${id}  Set Variable   1
+
+  Connect To Database Using Custom Params  cx_Oracle  ${string_conexao}
+  @{queryResults}=  Query  ${query}
+  ${id}=  Set Variable  ${queryResults[0][0]}
 
   Create Session      api    ${base_uri}  disable_warnings=1
   ${response}=  GET Request  api  ${base_path}/${id}/  headers=${headers}
