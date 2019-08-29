@@ -26,41 +26,42 @@ ${query}=  SELECT *
     ...  AND  TA.OID_TIPO_AGENTE_CREDENCIADO = T.OID_TIPO_AGENTE_CREDENCIADO
     ...  AND ROWNUM <= 1
 
-
 #info agente credenciado
 ${agencia}
 ${tipo}
 
-
-
 *** Keywords ***
+#TC: Validar busca agentes credenciados por agencia
 Buscar Info no banco de dados
-    Connect To Database Using Custom Params  cx_Oracle  ${string_conexao}
-    @{queryResults}=  Query  ${query}
-    ${agencia}=  Set Variable  ${queryResults[0][3]}
-    ${tipo}=  Set Variable  ${queryResults[0][10]}
+  Connect To Database Using Custom Params  cx_Oracle  ${string_conexao}
+  @{queryResults}=  Query  ${query}
+  ${agencia}=  Set Variable  ${queryResults[0][3]}
+  ${tipo}=  Set Variable  ${queryResults[0][10]}
 
-    Log Many  @{queryResults}
+  Log Many  @{queryResults}
 
-    Set Global Variable  ${agencia}
-    Set Global Variable  ${tipo}
-    disconnect from database
+  Set Global Variable  ${agencia}
+  Set Global Variable  ${tipo}
+  disconnect from database
 
 
 
 
 Buscar Agentes Credenciados
-    Create Session      api    ${url}  disable_warnings=1
-    &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
-    ${response}=  GET Request  api  /agentesCredenciados/  params=${params}
-    Log  ${response.json()}
-    Log  ${response.json()[0]['id']}
-    Log  ${response.json()[0]['nomePessoa']}
-    Log  ${response.status_code}
-    Dictionary Should Contain Value  ${response.json()[0]}  ${response.json()[0]['nomePessoa']}
+  Create Session      api    ${url}  disable_warnings=1
+  &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
+  ${response}=  GET Request  api  /agentesCredenciados/  params=${params}
+  Log  ${response.json()}
+  Log  ${response.json()[0]['id']}
+  Log  ${response.json()[0]['nomePessoa']}
+  Log  ${response.status_code}
+  Dictionary Should Contain Value  ${response.json()[0]}  ${response.json()[0]['nomePessoa']}
 
 
 
+#TC: Validar busca agentes credenciados por tipo
+Enviar request
+  Create Session      api    ${url}  disable_warnings=1
 
 
 

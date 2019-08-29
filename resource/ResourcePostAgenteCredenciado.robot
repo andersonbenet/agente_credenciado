@@ -14,7 +14,7 @@ ${url}  https://creditocomercial-agente-credenciado-api.dev.rs-1.paas.sicredi.ne
 
 *** Keywords ***
 #TC: Validar Inserir Agente Credenciado Sucess
-Enviar request POST /agentesCredenciados
+Enviar request POST
     ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado.json
     ${payload}    Replace String  ${payload}  new_cpf_cnpj       61240010044
     ${payload}    Replace String  ${payload}  new_num_agencia    0710
