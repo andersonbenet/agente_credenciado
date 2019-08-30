@@ -7,7 +7,8 @@ Library  Collections
 Library  OperatingSystem
 
 *** Variables ***
-${url}  https://creditocomercial-agente-credenciado-api.dev.rs-1.paas.sicredi.net:443/v1
+${base_uri}  https://creditocomercial-agente-credenciado-api.dev.rs-1.paas.sicredi.net:443/v1
+${base_path}  /agentesCredenciados/
 
 &{headers}
     ...   Content-Type=application/json
@@ -23,8 +24,8 @@ Enviar request POST
     ${payload}    Replace String  ${payload}  new_descricao      VEICULOS
     ${payload}    Replace String  ${payload}  new_id             1
 
-    Create Session      api    ${url}  disable_warnings=1
-    ${response}=  POST Request  api  /agentesCredenciados/  data=${payload}  headers=${headers}
+    Create Session      api    ${base_uri}  disable_warnings=1
+    ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
 
     Should Be Equal As Strings  ${response.status_code}  201
 
