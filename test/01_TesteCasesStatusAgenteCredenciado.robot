@@ -1,7 +1,7 @@
 *** Settings ***
 Resource  ../resource/ResourceStatusAgenteCredenciado.robot
 
-Documentation    Test case consulta status da API
+Documentation    Consulta status da API
 
 
 *** Test Cases ***
