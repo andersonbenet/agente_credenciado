@@ -29,7 +29,7 @@ ${query}=  SELECT *
 
 
 *** Keywords ***
-#TC: Contrato
+#TC: Retorno schema
 Validar schema response tipos agentes credenciados
   Create Session      api    ${base_uri}  disable_warnings=1
   ${response}=  GET Request  api  ${base_path}  headers=${headers}
