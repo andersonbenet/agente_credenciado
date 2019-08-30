@@ -1,5 +1,5 @@
 *** Settings ***
-Resource  ../resource/ResourceFiltrosAgenteCredenciado.robot
+Resource  ../resource/ResourceGetAgenteCredenciado.robot
 
 *** Test Cases ***
 TC: Validar busca agentes credenciados por agencia
