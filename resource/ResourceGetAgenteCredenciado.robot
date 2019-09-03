@@ -30,7 +30,7 @@ ${query}  SELECT *
 
 *** Keywords ***
 #TC: Validar busca agentes credenciados por agencia
-Buscar Info no banco de dados
+Buscar info no banco de dados
   Connect To Database Using Custom Params  cx_Oracle  ${string_conexao}
   @{queryResults}=  Query  ${query}
   ${agencia}  Set Variable  ${queryResults[0][3]}
@@ -40,20 +40,47 @@ Buscar Info no banco de dados
 
   Set Global Variable  ${agencia}
   Set Global Variable  ${tipo}
+  Set Global Variable  @{queryResults}
   disconnect from database
 
-Buscar Agentes Credenciados
+Buscar buscar agentes credenciados por agencia
   Create Session      api    ${base_uri}  disable_warnings=1
-  &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
+  &{params}=  Create Dictionary  agencia=${agencia}
   ${response}=  GET Request  api  ${base_path}  params=${params}
-
+  Log  ${response.json()}
   Should Be Equal As Strings  ${response.status_code}  200
-  Dictionary Should Contain Value  ${response.json()[0]}  ${response.json()[0]['nomePessoa']}
+  Log  ${queryResults[0][8]}
+  Dictionary Should Contain Value  ${response.json()[0]}  ${queryResults[0][8]}
 
 
 #TC: Validar busca agentes credenciados por tipo
-Enviar request
+Buscar buscar agentes credenciados por agencia e tipo
   Create Session      api    ${base_uri}  disable_warnings=1
+  &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
+  ${response}=  GET Request  api  ${base_path}  params=${params}
+  Log  ${response.json()}
+  Should Be Equal As Strings  ${response.status_code}  200
+  Log  ${queryResults[0][8]}
+  Dictionary Should Contain Value  ${response.json()[0]}  ${queryResults[0][8]}
 
 
+#TC: Validar busca agentes credenciados por agencia invalida
+Busca agentes credenciados por agencia invalida
+  ${agencia}  Set Variable  0999
+  Convert To String  ${agencia}
 
+  Create Session      api    ${base_uri}  disable_warnings=1
+  &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
+  ${response}=  GET Request  api  ${base_path}  params=${params}
+  Should Be Equal As Strings  ${response.status_code}  204
+
+
+#TC: Validar busca agentes credenciados por tipo invalido
+Busca agentes credenciados por tipo invalido
+  ${tipo}  Set Variable  BLABLA
+  Convert To String  ${tipo}
+  Log  ${agencia}
+  Create Session      api    ${base_uri}  disable_warnings=1
+  &{params}=  Create Dictionary  agencia=${agencia}  tipo=${tipo}
+  ${response}=  GET Request  api  ${base_path}  params=${params}
+  Should Be Equal As Strings  ${response.status_code}  204

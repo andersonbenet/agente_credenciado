@@ -188,3 +188,106 @@ Validar add agente credenciado com campo numAgencia inválido
 
   Should Be Equal As Strings  ${response.status_code}  400
   Should Be Equal As Strings  ${response.json()['message']}  Dados Inválidos: numAgencia
+
+
+#TC: Validar add agente credenciado com campo oidPessoa não informado
+Validar add agente credenciado com campo oidPessoa não informado
+  ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado5.json
+  ${payload}    Replace String  ${payload}  new_cpf_cnpj       ${cpf_cnpj}
+  ${payload}    Replace String  ${payload}  new_num_agencia    ${num_agencia}
+  ${payload}    Replace String  ${payload}  new_situacao       ${situacao}
+  ${payload}    Replace String  ${payload}  new_descricao      ${descricao}
+  ${payload}    Replace String  ${payload}  new_id             ${id}
+
+  Create Session      api    ${base_uri}  disable_warnings=1
+  ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
+
+  Should Be Equal As Strings  ${response.status_code}  400
+
+#TC: Validar add agente credenciado com campo oidPessoa inválido
+Validar add agente credenciado com campo oidPessoa inválido
+  ${aux}  Set Variable  9999999
+  Convert To String  ${aux}
+
+  ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado.json
+  ${payload}    Replace String  ${payload}  new_cpf_cnpj       ${cpf_cnpj}
+  ${payload}    Replace String  ${payload}  new_num_agencia    ${num_agencia}
+  ${payload}    Replace String  ${payload}  new_oid_pessoa     ${aux}
+  ${payload}    Replace String  ${payload}  new_situacao       ${situacao}
+  ${payload}    Replace String  ${payload}  new_descricao      ${descricao}
+  ${payload}    Replace String  ${payload}  new_id             ${id}
+
+  Create Session      api    ${base_uri}  disable_warnings=1
+  ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
+
+  Should Be Equal As Strings  ${response.status_code}  500
+  Should Be Equal As Strings  ${response.json()['message']}  Dados não encontrados: InformacoesCadastrais::BuscarDados
+
+#TC: Validar add agente credenciado com campo situacao não informado
+Validar add agente credenciado com campo situacao não informado
+  ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado6.json
+  ${payload}    Replace String  ${payload}  new_cpf_cnpj       ${cpf_cnpj}
+  ${payload}    Replace String  ${payload}  new_num_agencia    ${num_agencia}
+  ${payload}    Replace String  ${payload}  new_oid_pessoa     ${aux}
+  ${payload}    Replace String  ${payload}  new_descricao      ${descricao}
+  ${payload}    Replace String  ${payload}  new_id             ${id}
+
+  Create Session      api    ${base_uri}  disable_warnings=1
+  ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
+
+  Should Be Equal As Strings  ${response.status_code}  400
+  Should Be Equal As Strings  ${response.json()['message']}  Dados obrigatórios: situacao
+
+#TC: Validar add agente credenciado com campo situacao inválido
+Validar add agente credenciado com campo situacao inválido
+  ${situacao}  Set Variable  9
+  Convert To String  ${situacao}
+
+  ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado.json
+  ${payload}    Replace String  ${payload}  new_cpf_cnpj       ${cpf_cnpj}
+  ${payload}    Replace String  ${payload}  new_num_agencia    ${num_agencia}
+  ${payload}    Replace String  ${payload}  new_oid_pessoa     ${aux}
+  ${payload}    Replace String  ${payload}  new_situacao       ${situacao}
+  ${payload}    Replace String  ${payload}  new_descricao      ${descricao}
+  ${payload}    Replace String  ${payload}  new_id             ${id}
+
+  Create Session      api    ${base_uri}  disable_warnings=1
+  ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
+
+  Should Be Equal As Strings  ${response.status_code}  400
+  Should Be Equal As Strings  ${response.json()['message']}  Dados Inválidos: situacao
+
+#TC: Validar add agente credenciado com campo tiposAgente não informado
+Validar add agente credenciado com campo tiposAgente não informado
+  ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado7.json
+  ${payload}    Replace String  ${payload}  new_cpf_cnpj       ${cpf_cnpj}
+  ${payload}    Replace String  ${payload}  new_num_agencia    ${num_agencia}
+  ${payload}    Replace String  ${payload}  new_oid_pessoa     ${aux}
+  ${payload}    Replace String  ${payload}  new_situacao       ${situacao}
+
+  Create Session      api    ${base_uri}  disable_warnings=1
+  ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
+
+  Should Be Equal As Strings  ${response.status_code}  400
+  Should Be Equal As Strings  ${response.json()['message']}  Dados obrigatórios: tipoAgente
+
+#TC: Validar add agente credenciado com campo tiposAgente inválido
+Validar add agente credenciado com campo tiposAgente inválido
+  ${descricao}  Set Variable  BLABLA  #PERMITIDO QUALQUER STRING
+  ${id}  Set Variable  3  #PERMITIDO [1,2]
+  Convert To String  ${situacao}
+  Convert To String  ${id}
+
+  ${payload}    Get File    ${CURDIR}\\request_json\\payload_insere_agente_credenciado.json
+  ${payload}    Replace String  ${payload}  new_cpf_cnpj       ${cpf_cnpj}
+  ${payload}    Replace String  ${payload}  new_num_agencia    ${num_agencia}
+  ${payload}    Replace String  ${payload}  new_oid_pessoa     ${aux}
+  ${payload}    Replace String  ${payload}  new_situacao       ${situacao}
+  ${payload}    Replace String  ${payload}  new_descricao      ${descricao}
+  ${payload}    Replace String  ${payload}  new_id             ${id}
+
+  Create Session      api    ${base_uri}  disable_warnings=1
+  ${response}=  POST Request  api  ${base_path}  data=${payload}  headers=${headers}
+
+  Should Be Equal As Strings  ${response.status_code}  400
+  Should Be Equal As Strings  ${response.json()['message']}  Dados não encontrados: TipoAgenteCredenciado

@@ -1,0 +1,12 @@
+{
+  "cpfCnpj": "new_cpf_cnpj",
+  "numAgencia": "new_num_agencia",
+  "oidPessoa": "",
+  "situacao": "new_situacao",
+  "tiposAgente": [
+    {
+      "descricao": "new_descricao",
+      "id": "new_id"
+    }
+  ]
+}

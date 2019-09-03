@@ -1,0 +1,7 @@
+{
+  "cpfCnpj": "new_cpf_cnpj",
+  "numAgencia": "new_num_agencia",
+  "oidPessoa": "new_oid_pessoa",
+  "situacao": "new_situacao",
+  "tiposAgente": []
+}
