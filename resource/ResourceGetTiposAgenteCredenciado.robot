@@ -62,6 +62,8 @@ Validar busca tipos agentes credenciados com filtro
   ${response}=  GET Request  api  ${base_path}/${id}/  headers=${headers}
 
   Should Be Equal As Strings  ${response.status_code}  200
+  Should Be Equal As Strings  ${response.json()['descricao']}   ${queryResults[0][1]}
+
 
 #TC: Busca tipos agentes credenciados com filtro invalido
 Validar busca tipos agentes credenciados com filtro invalido
